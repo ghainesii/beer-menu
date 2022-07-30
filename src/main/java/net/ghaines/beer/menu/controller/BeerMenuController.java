@@ -27,9 +27,6 @@ public class BeerMenuController {
     @Autowired
     OnTapRepository onTapRepository;
 
-    @Value("${resident.state}")
-    private String residentState;
-
     @Value("${untappd.url}")
     private String untappdUrl;
 
@@ -42,8 +39,6 @@ public class BeerMenuController {
             Iterable<OnTap> onTap = onTapRepository.findAll();
 
             onTap.forEach(beer -> {
-                // Brewery logo stored in DB for now.
-                // Alternative solution would be to pull it from Untappd API.
                 if (beer.getLogo() != null) {
                     byte[] encodeBase64 = Base64.encodeBase64(beer.getLogo());
                     String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
@@ -53,7 +48,6 @@ public class BeerMenuController {
                 beer.setNew(isNew);
             });
             model.addAttribute("onTap", onTap);
-            model.addAttribute("residentState", residentState);
 
             Untappd untappd = restTemplate.getForObject(untappdUrl, Untappd.class);
             model.addAttribute("untappd", untappd);

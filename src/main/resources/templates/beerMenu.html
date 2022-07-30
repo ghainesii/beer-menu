@@ -27,7 +27,7 @@
                 <span>
                     <strong class="mb-2 card-text-primary" th:text="${beer.brewer}"></strong>&nbsp;
                     <i th:text="${beer.city + ', ' + beer.state}" class="d-sm-inline"></i>&nbsp;
-                    <span th:if="${beer.state == residentState}" class="d-sm-inline badge badge-secondary">Local</span>
+                    <span th:if="${beer.state == 'IL'}" class="d-sm-inline badge badge-secondary">Local</span>
                     <span th:if="${beer.new}" class="d-sm-inline badge badge-primary">New</span>
                 </span>
                 <h3 class="mb-2">

@@ -31,13 +31,13 @@ class BeerMenuControllerTest {
 
     private MockMvc mockMvc;
 
-    private final UntappdBrewery brewery = new UntappdBrewery("Triptych");
-    private final UntappdBeer beer = new UntappdBeer("Dank Meme", "Pale Ale");
-    private final UntappdUser user = new UntappdUser("jsmith", "John", "Smith", "test");
-    private final UntappdItem item = new UntappdItem(new Date(), user, beer, brewery);
-    private final UntappdCheckins checkins = new UntappdCheckins(List.of(item));
-    private final UntappdResponse response = new UntappdResponse(checkins);
-    private final Untappd untappd = new Untappd(response);
+    private UntappdBrewery brewery = new UntappdBrewery("Triptych");
+    private UntappdBeer beer = new UntappdBeer("Dank Meme", "Pale Ale");
+    private UntappdUser user = new UntappdUser("jsmith", "John", "Smith", "test");
+    private UntappdItem item = new UntappdItem(new Date(), user, beer, brewery);
+    private UntappdCheckins checkins = new UntappdCheckins(List.of(item));
+    private UntappdResponse response = new UntappdResponse(checkins);
+    private Untappd untappd = new Untappd(response);
 
     @BeforeEach
     void setup() {
