@@ -1,0 +1,58 @@
+body {
+    color: #fff;
+    background-color: #1e1e2f;
+    margin: 0 10px;
+}
+h1, h2 {
+    text-align: center;
+    margin: 0.75em;
+}
+h3 {
+    margin-top: 0.25rem;
+}
+.brewery-image {
+    width: 150px;
+    height: 150px;
+}
+.placeholder-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-45deg);
+    height: 150px;
+}
+.card {
+    background-color: #27293d;
+}
+.card-body {
+    padding-left: 11rem;
+    position: absolute;
+}
+.untappd-body {
+    padding-left: 110px;
+    position: absolute;
+}
+.card-text-primary {
+    color: #84a7e3;
+}
+span.badge-primary {
+    background-color: #84a7e3;
+}
+@media only screen and (max-width: 400px) {
+    h3 {
+        font-size: 1.5em;
+    }
+    .card-body {
+        padding-left: 10rem;
+    }
+
+}
+@media only screen and (max-width: 1600px) {
+	h3 {
+        font-size: 1.5em;
+    }
+    .untappd-body {
+        font-size: 0.9em;
+    }
+
+}
