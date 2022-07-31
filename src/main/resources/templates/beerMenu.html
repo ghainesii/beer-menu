@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="HandheldFriendly" content="true">
+    <title>Beer Menu</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{css/beer.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script th:src="@{js/beer.js}"></script>
+</head>
+<body>
+
+<h1>On Tap</h1>
+
+<div class="row mb-2">
+
+    <div class="col-md-6 col-xl-4" th:each="beer : ${onTap}">
+        <div class="card mb-4">
+            <div class="brewery-image">
+                <img th:if="${beer.logo != null}" th:src="|data:image/jpg;base64,${beer.logoBase64}|">
+                <div th:if="${beer.logo == null}" class="placeholder-image">Logo here</div>
+            </div>
+            <div class="card-body">
+                <span>
+                    <strong class="mb-2 card-text-primary" th:text="${beer.brewer}"></strong>&nbsp;
+                    <i th:text="${beer.city + ', ' + beer.state}" class="d-sm-inline"></i>&nbsp;
+                    <span th:if="${beer.state == residentState}" class="d-sm-inline badge badge-secondary">Local</span>
+                    <span th:if="${beer.new}" class="d-sm-inline badge badge-primary">New</span>
+                </span>
+                <h3 class="mb-2">
+                    <span class="beerName" th:text="${beer.beer}"></span>
+                </h3>
+
+                <p class="card-text mb-auto" th:text="${beer.style + ' | ' + beer.abv + '% ABV'}"></p>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<h2>Untappd Checkins</h2>
+
+<div class="row mb-2">
+
+    <th:block th:each="item,iter: ${untappd.response.checkins.items}">
+
+        <div class="col-md-4 col-xl-3" th:id="${'untappd' + iter.index}">
+            <div class="card mb-4">
+                <img th:if="${item.user.user_avatar != null}" th:src="${item.user.user_avatar}"
+                     style="width: 100px; height: 100px;">
+                <div class="untappd-body">
+                    <div>
+                        <strong class="mb-2 card-text-primary" th:text="${item.user.first_name + ' ' + item.user.last_name}"></strong>&nbsp;
+                        &nbsp;&nbsp;
+                        <i th:text="${#dates.format(item.created_at, 'MMM dd')}"></i>
+                    </div>
+                    <div>
+                        <strong th:text="${item.beer.beer_name}"></strong>
+                    </div>
+
+                    <p class="card-text mb-auto" th:text="${item.brewery.brewery_name}"></p>
+
+                </div>
+
+            </div>
+        </div>
+
+    </th:block>
+
+</div>
+
+<footer class="footer text-center">
+    <div class="container">
+        <span class="text-muted">ghaines.net</span>
+    </div>
+</footer>
+
+</body>
+</html>
