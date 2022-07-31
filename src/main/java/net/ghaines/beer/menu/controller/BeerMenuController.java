@@ -27,6 +27,9 @@ public class BeerMenuController {
     @Autowired
     OnTapRepository onTapRepository;
 
+    @Value("${resident.state}")
+    private String residentState;
+
     @Value("${untappd.url}")
     private String untappdUrl;
 
@@ -48,6 +51,7 @@ public class BeerMenuController {
                 beer.setNew(isNew);
             });
             model.addAttribute("onTap", onTap);
+            model.addAttribute("residentState", residentState);
 
             Untappd untappd = restTemplate.getForObject(untappdUrl, Untappd.class);
             model.addAttribute("untappd", untappd);
