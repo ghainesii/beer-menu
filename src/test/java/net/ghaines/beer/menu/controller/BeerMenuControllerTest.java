@@ -1,6 +1,8 @@
 package net.ghaines.beer.menu.controller;
 
+import net.ghaines.beer.menu.entity.OnTap;
 import net.ghaines.beer.menu.model.*;
+import net.ghaines.beer.menu.repository.OnTapRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +31,9 @@ class BeerMenuControllerTest {
     @Mock
     RestTemplate restTemplate;
 
+    @Mock
+    OnTapRepository onTapRepository;
+
     private MockMvc mockMvc;
 
     private final UntappdBrewery brewery = new UntappdBrewery("Triptych");
@@ -47,6 +52,7 @@ class BeerMenuControllerTest {
     @Test
     void testGetMenu() throws Exception {
         when(restTemplate.getForObject(anyString(), eq(Untappd.class))).thenReturn(untappd);
+        when(onTapRepository.findAll()).thenReturn(List.of(new OnTap()));
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/"))
                 .andExpect(status().isOk())
