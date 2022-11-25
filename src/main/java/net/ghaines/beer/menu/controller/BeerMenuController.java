@@ -6,7 +6,6 @@ import net.ghaines.beer.menu.repository.OnTapRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,19 +20,22 @@ import java.time.LocalDate;
 @RequestMapping(value = "/")
 public class BeerMenuController {
 
-    @Autowired
-    RestTemplate restTemplate;
+    private static final Logger LOGGER = LoggerFactory.getLogger(BeerMenuController.class);
 
-    @Autowired
-    OnTapRepository onTapRepository;
+    final RestTemplate restTemplate;
+
+    final OnTapRepository onTapRepository;
+
+    public BeerMenuController(RestTemplate restTemplate, OnTapRepository onTapRepository) {
+        this.restTemplate = restTemplate;
+        this.onTapRepository = onTapRepository;
+    }
 
     @Value("${resident.state}")
     private String residentState;
 
     @Value("${untappd.url}")
-    private String untappdUrl;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(BeerMenuController.class);
+    private String untappdUrl = "";
 
     @GetMapping
     public String getMenu(Model model) {
@@ -45,7 +47,7 @@ public class BeerMenuController {
                 // Brewery logo stored in DB for now.
                 // Alternative solution would be to pull it from Untappd API.
                 if (beer.getLogo() != null) {
-                    byte[] encodeBase64 = Base64.encodeBase64(beer.getLogo());
+                    byte[] encodeBase64 = Base64.encodeBase64(beer.getLogo(), false);
                     String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
                     beer.setLogoBase64(base64Encoded);
                 }
