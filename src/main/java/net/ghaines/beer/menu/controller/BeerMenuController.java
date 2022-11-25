@@ -47,7 +47,7 @@ public class BeerMenuController {
                 // Brewery logo stored in DB for now.
                 // Alternative solution would be to pull it from Untappd API.
                 if (beer.getLogo() != null) {
-                    byte[] encodeBase64 = Base64.encodeBase64(beer.getLogo());
+                    byte[] encodeBase64 = Base64.encodeBase64(beer.getLogo(), false);
                     String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
                     beer.setLogoBase64(base64Encoded);
                 }
