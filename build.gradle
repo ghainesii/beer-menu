@@ -7,7 +7,7 @@ plugins {
 
 group = 'net.ghaines.beer'
 version = '1.0.0'
-sourceCompatibility = '17'
+sourceCompatibility = '19'
 
 repositories {
     mavenCentral()
