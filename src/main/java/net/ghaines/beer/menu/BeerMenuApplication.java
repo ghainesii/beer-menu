@@ -9,16 +9,15 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class BeerMenuApplication {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        SpringApplication.run(BeerMenuApplication.class, args);
+		SpringApplication.run(BeerMenuApplication.class, args);
 
-    }
+	}
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
-
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
+	}
 
 }
