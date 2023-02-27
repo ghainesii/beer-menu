@@ -2,9 +2,6 @@ package net.ghaines.beer.menu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class BeerMenuApplication {
@@ -13,11 +10,6 @@ public class BeerMenuApplication {
 
 		SpringApplication.run(BeerMenuApplication.class, args);
 
-	}
-
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
 	}
 
 }

@@ -1,6 +1,5 @@
-package net.ghaines.beer.menu.controller;
+package net.ghaines.beer.menu;
 
-import net.ghaines.beer.menu.BeerMenuController;
 import net.ghaines.beer.menu.Untappd.*;
 import net.ghaines.beer.menu.ontap.OnTap;
 import net.ghaines.beer.menu.ontap.OnTapRepository;
@@ -14,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
@@ -30,7 +28,7 @@ class BeerMenuControllerTest {
 	BeerMenuController beerMenuController;
 
 	@Mock
-	RestTemplate restTemplate;
+	UntappdClient untappdClient;
 
 	@Mock
 	OnTapRepository onTapRepository;
@@ -58,7 +56,7 @@ class BeerMenuControllerTest {
 
 	@Test
     void testGetMenu() throws Exception {
-        when(restTemplate.getForObject(anyString(), eq(Untappd.class))).thenReturn(untappd);
+        when(untappdClient.getUntappd()).thenReturn(untappd);
         when(onTapRepository.findAll()).thenReturn(List.of(new OnTap()));
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/"))
@@ -69,7 +67,7 @@ class BeerMenuControllerTest {
 
 	@Test
     void testException() throws Exception {
-        when(restTemplate.getForObject(anyString(), eq(Untappd.class))).thenThrow(RestClientException.class);
+        when(untappdClient.getUntappd()).thenThrow(RestClientException.class);
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/"))
                 .andExpect(status().isOk())
