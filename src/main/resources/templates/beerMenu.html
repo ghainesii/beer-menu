@@ -45,32 +45,28 @@
 
 <h2>Untappd Checkins</h2>
 
-<div class="row mb-2">
+<div class="row mb-2" th:if="${untappd != null}">
 
-    <th:block th:each="item,iter: ${untappd.response.checkins.items}">
-
-        <div class="col-md-4 col-xl-3" th:id="${'untappd' + iter.index}">
-            <div class="card mb-4">
-                <img th:if="${item.user.user_avatar != null}" th:src="${item.user.user_avatar}"
-                     style="width: 100px; height: 100px;">
-                <div class="untappd-body">
-                    <div>
-                        <strong class="mb-2 card-text-primary" th:text="${item.user.first_name + ' ' + item.user.last_name}"></strong>&nbsp;
-                        &nbsp;&nbsp;
-                        <i th:text="${#dates.format(item.created_at, 'MMM dd')}"></i>
-                    </div>
-                    <div>
-                        <strong th:text="${item.beer.beer_name}"></strong>
-                    </div>
-
-                    <p class="card-text mb-auto" th:text="${item.brewery.brewery_name}"></p>
-
+    <div class="col-md-4 col-xl-3" th:each="item,iter: ${untappd.response.checkins.items}" th:id="${'untappd' + iter.index}">
+        <div class="card mb-4">
+            <img th:if="${item.user.user_avatar != null}" th:src="${item.user.user_avatar}"
+                 style="width: 100px; height: 100px;">
+            <div class="untappd-body">
+                <div>
+                    <strong class="mb-2 card-text-primary" th:text="${item.user.first_name + ' ' + item.user.last_name}"></strong>&nbsp;
+                    &nbsp;&nbsp;
+                    <i th:text="${#dates.format(item.created_at, 'MMM dd')}"></i>
+                </div>
+                <div>
+                    <strong th:text="${item.beer.beer_name}"></strong>
                 </div>
 
-            </div>
-        </div>
+                <p class="card-text mb-auto" th:text="${item.brewery.brewery_name}"></p>
 
-    </th:block>
+            </div>
+
+        </div>
+    </div>
 
 </div>
 
