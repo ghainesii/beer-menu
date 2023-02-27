@@ -1,4 +1,4 @@
-package net.ghaines.beer.menu.entity;
+package net.ghaines.beer.menu.ontap;
 
 import lombok.Getter;
 import lombok.Setter;

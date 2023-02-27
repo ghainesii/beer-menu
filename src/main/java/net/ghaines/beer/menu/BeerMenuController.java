@@ -1,8 +1,8 @@
-package net.ghaines.beer.menu.controller;
+package net.ghaines.beer.menu;
 
-import net.ghaines.beer.menu.entity.OnTap;
-import net.ghaines.beer.menu.model.Untappd;
-import net.ghaines.beer.menu.repository.OnTapRepository;
+import net.ghaines.beer.menu.ontap.OnTap;
+import net.ghaines.beer.menu.Untappd.Untappd;
+import net.ghaines.beer.menu.ontap.OnTapRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

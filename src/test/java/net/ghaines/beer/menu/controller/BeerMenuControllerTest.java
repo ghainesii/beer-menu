@@ -1,8 +1,9 @@
 package net.ghaines.beer.menu.controller;
 
-import net.ghaines.beer.menu.entity.OnTap;
-import net.ghaines.beer.menu.model.*;
-import net.ghaines.beer.menu.repository.OnTapRepository;
+import net.ghaines.beer.menu.BeerMenuController;
+import net.ghaines.beer.menu.Untappd.*;
+import net.ghaines.beer.menu.ontap.OnTap;
+import net.ghaines.beer.menu.ontap.OnTapRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

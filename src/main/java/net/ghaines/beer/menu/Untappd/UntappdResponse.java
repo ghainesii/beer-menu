@@ -1,4 +1,4 @@
-package net.ghaines.beer.menu.model;
+package net.ghaines.beer.menu.Untappd;
 
 public record UntappdResponse(UntappdCheckins checkins) {
 }
