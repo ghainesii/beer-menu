@@ -54,24 +54,22 @@ class BeerMenuControllerTest {
 	}
 
 	@Test
-    void testGetMenu() throws Exception {
-        when(untappdClient.getUntappd()).thenReturn(untappd);
-        when(onTapRepository.findAll()).thenReturn(List.of(new OnTap()));
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("untappd"))
-                .andExpect(forwardedUrl("beerMenu"));
-    }
+	void testGetMenu() throws Exception {
+		when(untappdClient.getUntappd()).thenReturn(untappd);
+		when(onTapRepository.findAll()).thenReturn(List.of(new OnTap()));
+		mockMvc.perform(MockMvcRequestBuilders.get("/"))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeExists("untappd"))
+			.andExpect(forwardedUrl("beerMenu"));
+	}
 
 	@Test
-    void testException() throws Exception {
-        when(untappdClient.getUntappd()).thenThrow(RestClientException.class);
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/"))
-                .andExpect(status().isOk())
-                .andExpect(model(). attributeDoesNotExist("untappd"))
-                .andExpect(forwardedUrl("beerMenu"));
-    }
+	void testException() throws Exception {
+		when(untappdClient.getUntappd()).thenThrow(RestClientException.class);
+		mockMvc.perform(MockMvcRequestBuilders.get("/"))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeDoesNotExist("untappd"))
+			.andExpect(forwardedUrl("beerMenu"));
+	}
 
 }
