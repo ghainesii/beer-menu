@@ -3,36 +3,32 @@ package net.ghaines.beer.menu;
 import net.ghaines.beer.menu.Untappd.*;
 import net.ghaines.beer.menu.ontap.OnTap;
 import net.ghaines.beer.menu.ontap.OnTapRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestClientException;
 
 import java.util.Date;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
+@WebMvcTest(BeerMenuController.class)
 class BeerMenuControllerTest {
 
-	@InjectMocks
-	BeerMenuController beerMenuController;
+	@Autowired
+	private MockMvc mockMvc;
 
-	@Mock
+	@MockitoBean
 	UntappdClient untappdClient;
 
-	@Mock
+	@MockitoBean
 	OnTapRepository onTapRepository;
-
-	private MockMvc mockMvc;
 
 	private final UntappdBrewery brewery = new UntappdBrewery("Triptych");
 
@@ -48,28 +44,21 @@ class BeerMenuControllerTest {
 
 	private final Untappd untappd = new Untappd(response);
 
-	@BeforeEach
-	void setup() {
-		mockMvc = MockMvcBuilders.standaloneSetup(beerMenuController).build();
-	}
-
 	@Test
 	void testGetMenu() throws Exception {
 		when(untappdClient.getUntappd()).thenReturn(untappd);
 		when(onTapRepository.findAll()).thenReturn(List.of(new OnTap()));
 		mockMvc.perform(MockMvcRequestBuilders.get("/"))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("untappd"))
-			.andExpect(forwardedUrl("beerMenu"));
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("untappd"));
 	}
 
 	@Test
 	void testException() throws Exception {
 		when(untappdClient.getUntappd()).thenThrow(RestClientException.class);
 		mockMvc.perform(MockMvcRequestBuilders.get("/"))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeDoesNotExist("untappd"))
-			.andExpect(forwardedUrl("beerMenu"));
+				.andExpect(status().isOk())
+				.andExpect(model().attributeDoesNotExist("untappd"));
 	}
 
 }

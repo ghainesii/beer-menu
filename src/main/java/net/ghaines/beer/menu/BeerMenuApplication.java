@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BeerMenuApplication {
+class BeerMenuApplication {
 
-	public static void main(String[] args) {
+	static void main(String[] args) {
 
 		SpringApplication.run(BeerMenuApplication.class, args);
 
